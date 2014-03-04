@@ -8,6 +8,9 @@ public class Story {
 	 * and some associated funtions. For
 	 * now only stores the story and can
 	 * split it into pages.
+	 * 
+	 * I am undecided if this serves any 
+	 * purpose
 	 */
 
 	public string caption;
