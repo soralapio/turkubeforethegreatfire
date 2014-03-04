@@ -1,0 +1,97 @@
+fileFormatVersion: 2
+guid: 525e85a701e606a40b3692d8e97ea682
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bottle_green
+    100002: chessboard
+    100004: Cube_001
+    100006: //RootNode
+    100008: Glass_wine
+    100010: Glass_wine_001
+    100012: Tuolikamala2
+    100014: Tuolikamala2_001
+    400000: Bottle_green
+    400002: chessboard
+    400004: Cube_001
+    400006: //RootNode
+    400008: Glass_wine
+    400010: Glass_wine_001
+    400012: Tuolikamala2
+    400014: Tuolikamala2_001
+    2300000: Bottle_green
+    2300002: chessboard
+    2300004: Cube_001
+    2300006: Glass_wine
+    2300008: Glass_wine_001
+    2300010: Tuolikamala2
+    2300012: Tuolikamala2_001
+    3300000: Bottle_green
+    3300002: chessboard
+    3300004: Cube_001
+    3300006: Glass_wine
+    3300008: Glass_wine_001
+    3300010: Tuolikamala2
+    3300012: Tuolikamala2_001
+    4300000: Cube_001
+    4300002: Tuolikamala2_001
+    4300004: chessboard
+    4300006: Bottle_green
+    4300008: Glass_wine_001
+    4300010: Glass_wine
+    4300012: Tuolikamala2
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
