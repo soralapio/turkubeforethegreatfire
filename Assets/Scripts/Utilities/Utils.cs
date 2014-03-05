@@ -64,7 +64,12 @@ namespace Utils{
 			return new Rect(x,y,width,height);
 		}
 
-
+		public static Rect PercentToPixels(Rect r){
+			/* r contains values as percents of screen values
+			 * returns a Rect with real (pixel) values
+			 */
+			return new Rect();
+		}
 
 	}
 

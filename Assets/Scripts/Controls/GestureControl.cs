@@ -12,7 +12,7 @@ namespace InputEventSystem{
 		// this event type thing needs some reconsideration
 
 		public enum EventTypes : int {ClickDown, ClickUp, Holding, Drag, DragEnd, Zoom}; // this will probably get deprecated
-		private int etype;
+		private int etype; // change to eventtype
 		private Vector3 startp;
 		private Vector3 endp;
 		private Vector3 dir;
@@ -78,12 +78,12 @@ namespace InputEventSystem{
 		// callsafes for raising events
 		protected void RaisePointerDown(InputEvent ie){
 			if(!sending) return;
-			print ("Event: pointer down");
+			//print ("Event: pointer down");
 			if(pointerDownListeners != null) pointerDownListeners(ie);
 		}
 		protected void RaisePointerUp(InputEvent ie){
 			if(!sending) return;
-			print ("Event: pointer up");
+			//print ("Event: pointer up");
 			if(pointerUpListeners != null) pointerUpListeners(ie);
 		}
 		protected void RaiseHolding(InputEvent ie){
@@ -114,6 +114,9 @@ namespace InputEventSystem{
 		 * these numbers are only tested on nexus 7. 
 		 */
 
+		// TODO: figure out how to fix pinch-zoom asynchronous release
+		// TODO: maybe try some timer based release for pointer up -event
+
 		private bool touching;
 		private bool dragging;
 		private float lpinch;
@@ -132,7 +135,7 @@ namespace InputEventSystem{
 		protected override void UpdateEventState(){
 			InputEvent ie = null;
 			
-			if(Input.touchCount == 1){// move or tap
+			if(Input.touches.Length == 1){// move or tap
 				lpinch = 0;
 
 				Touch touch = Input.touches[0];
@@ -153,7 +156,7 @@ namespace InputEventSystem{
 						dragging = true;
 						ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 100);
 						RaiseDrag(ie);
-						print ("dragging " + position.magnitude.ToString());
+						//print ("dragging " + position.magnitude.ToString());
 					}
 					break;
 
@@ -183,7 +186,8 @@ namespace InputEventSystem{
 				}
 
 			}
-			else if(Input.touchCount == 2){ // pinch zoom
+			else if(Input.touches.Length == 2){ // pinch zoom
+
 				Touch touch1 = Input.touches[0];
 				Touch touch2 = Input.touches[1];
 				

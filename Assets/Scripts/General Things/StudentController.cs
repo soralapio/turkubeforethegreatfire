@@ -40,7 +40,7 @@ public class StudentController: MonoBehaviour {
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		//w618 h893
 		// prepare student rect
-		studentr = new Rect(0,0,618,893);
+		studentr = new Rect(0,0,studenttexture.width,studenttexture.height);
 		print (studentr.ToString());
 		//studentr = PH.ScaleToRatio(studentr);
 
