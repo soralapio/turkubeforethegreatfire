@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUIManager : MonoBehaviour {
+using Utils;
+
+public class GUIManager : Singleton<MonoBehaviour> {
 	public GUIStyle overlaystyle;
 
 	public delegate void GuiHappening();
+	public delegate void OnGUIFunction();
 
 	public event GuiHappening EnteredOverlayListeners;
 	public event GuiHappening ExitedOverlayListeners;
+
+	public event OnGUIFunction OnGUIFuncs; // add all ongui things here. makes things more efficient.
 
 	private bool overlay;
 
@@ -26,9 +31,14 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		if(!overlay)return;
-		GUI.depth = 2; // i am guessing everything else is placed in depth 1?.. mysterious
-		GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
+		if(overlay){
+			GUI.depth = 2; // i am guessing everything else is placed in depth 1?.. mysterious
+			GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
+		}
+		else{
+			if(OnGUIFuncs != null) OnGUIFuncs();
+
+		}
 
 	}
 }

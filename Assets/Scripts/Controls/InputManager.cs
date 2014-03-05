@@ -10,6 +10,8 @@ public class InputManager :
 // if you have the feels: implement as component structure
 #if UNITY_ANDROID
 	TouchInputDriver
+#elif UNITY_IPHONE
+	TouchInputDriver
 #elif UNITY_EDITOR
 	MouseInputDriver
 #else
