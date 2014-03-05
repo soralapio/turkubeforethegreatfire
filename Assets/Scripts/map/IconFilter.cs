@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 using PH = Utils.PlatformHelper;
 public class IconFilter : MonoBehaviour {
-	private Dictionary<string, List<Icon>> iconlists;
-	private Dictionary<string, bool> toggles;
+	public enum IconTypes : int{Alueet, Tarinat};
+
+	private Dictionary<IconTypes, List<Icon>> iconlists;
+	private Dictionary<IconTypes, bool> toggles;
 
 	private Rect togglearea;
 	// Use this for initialization
@@ -15,23 +17,29 @@ public class IconFilter : MonoBehaviour {
 		togglearea.x = Screen.width - togglearea.width;
 		togglearea.y = 0;
 
-		iconlists = new Dictionary<string, List<Icon>>();
-		toggles = new Dictionary<string, bool>();
+		iconlists = new Dictionary<IconTypes, List<Icon>>();
+		toggles = new Dictionary<IconTypes, bool>();
 
-		iconlists["Alueet"] = new List<Icon>();
-		iconlists["Alueet"].AddRange(gameObject.GetComponentsInChildren<SceneIcon>());
-		toggles["Alueet"] = true;
+		iconlists[IconTypes.Alueet] = new List<Icon>();
+		iconlists[IconTypes.Alueet].AddRange(gameObject.GetComponentsInChildren<SceneIcon>());
+		toggles[IconTypes.Alueet] = true;
 
-		iconlists["Tarinat"] = new List<Icon>();
-		iconlists["Tarinat"].AddRange(gameObject.GetComponentsInChildren<MapIcon>());
-		toggles["Tarinat"] = true;
+		iconlists[IconTypes.Tarinat] = new List<Icon>();
+		iconlists[IconTypes.Tarinat].AddRange(gameObject.GetComponentsInChildren<MapIcon>());
+		toggles[IconTypes.Tarinat] = true;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public void ToggleIcons(IconTypes key){
+		toggles[key] = !toggles[key];
+		foreach(Icon g in iconlists[key]){
+			g.SetState(toggles[key]);
+		}
 	}
 
+	public bool GetToggleState(IconTypes key){
+		return toggles[key]; 
+	}
+	/*
 	void OnGUI(){
 		GUILayout.BeginArea(togglearea);
 		foreach(string s in iconlists.Keys){
@@ -45,5 +53,5 @@ public class IconFilter : MonoBehaviour {
 
 		GUILayout.EndArea();
 	}
-
+	*/
 }

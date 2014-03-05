@@ -12,7 +12,9 @@ public class GUIManager : Singleton<MonoBehaviour> {
 	public event GuiHappening EnteredOverlayListeners;
 	public event GuiHappening ExitedOverlayListeners;
 
-	public event OnGUIFunction OnGUIFuncs; // add all ongui things here. makes things more efficient.
+	// add all ongui things here. makes things more efficient:
+	public event OnGUIFunction NormalGUIFuncs; 
+	public event OnGUIFunction OverlayGUIFuncs;
 
 	private bool overlay;
 
@@ -34,11 +36,18 @@ public class GUIManager : Singleton<MonoBehaviour> {
 		if(overlay){
 			GUI.depth = 2; // i am guessing everything else is placed in depth 1?.. mysterious
 			GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
+			if(OverlayGUIFuncs != null){
+				GUI.depth = 1;
+				OverlayGUIFuncs();
+			}
 		}
 		else{
-			if(OnGUIFuncs != null) OnGUIFuncs();
-
+			if(NormalGUIFuncs != null){
+				GUI.depth = 1;
+				NormalGUIFuncs();
+			}
 		}
+		
 
 	}
 }

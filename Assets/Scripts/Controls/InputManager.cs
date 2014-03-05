@@ -12,6 +12,8 @@ public class InputManager :
 	TouchInputDriver
 #elif UNITY_IPHONE
 	TouchInputDriver
+#elif UNITY_IOS
+	TouchInputDriver
 #elif UNITY_EDITOR
 	MouseInputDriver
 #else

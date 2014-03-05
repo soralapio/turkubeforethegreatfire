@@ -65,6 +65,7 @@ public class StudentController: MonoBehaviour {
 		movet = 0;
 		moving = false;
 
+		gm.OverlayGUIFuncs += DrawStudent;
 
 	}
 	
@@ -75,44 +76,44 @@ public class StudentController: MonoBehaviour {
 		}
 	}
 
-	void OnGUI(){
+	private void DrawStudent(){
+		// this function is passed as a delegate to GUIManager
 
-		GUI.TextArea(new Rect(textcurrent.x, textcurrent.y, textr.width, textr.height), studentText[textPageToShow], speakstyle);
+		GUI.Box(new Rect(textcurrent.x, textcurrent.y, textr.width, textr.height), studentText[textPageToShow], speakstyle);
 		GUI.Label(new Rect( studentcurrent.x, studentcurrent.y, studentr.width, studentr.height), studenttexture);
-
-
+		
+		
 		if (readyToShow) {
 			if (textPageToShow != 0) {
-
-					if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), previousButton)) {
-
-							textPageToShow--;
-
-					}
-
-			}
-
-			if (textPageToShow != studentText.Length - 1) {
-
-					if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), nextButton)) {
-	
-							textPageToShow++;
-	
-					}
-
-			}
-
-			if (textPageToShow == studentText.Length - 1) {
+				
+				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), previousButton)) {
 					
-					if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), closeButton)) {
-					textPageToShow = 0;
-							Hide ();
-	
-					}
-			
-						}
+					textPageToShow--;
+					
 				}
-
+				
+			}
+			
+			if (textPageToShow != studentText.Length - 1) {
+				
+				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), nextButton)) {
+					
+					textPageToShow++;
+					
+				}
+				
+			}
+			
+			if (textPageToShow == studentText.Length - 1) {
+				
+				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), closeButton)) {
+					textPageToShow = 0;
+					Hide ();
+					
+				}
+				
+			}
+		}
 	}
 
 	public void Show(Story story){

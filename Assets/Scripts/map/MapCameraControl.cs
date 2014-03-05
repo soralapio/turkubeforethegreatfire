@@ -92,11 +92,13 @@ public class MapCameraControl : MonoBehaviour {
 
 	private void UpdateIcons(){
 		// at the moment, this isn't actually used.
+		/*
 		foreach(GameObject go in GameObject.FindGameObjectsWithTag("Icon")){ // maybe stick these icons into a local var
 			Icon i = go.GetComponent<Icon>();
 			if(camera.orthographicSize > i.visibilitylevel) i.Hide();
 			else i.Show();
 		}
+		*/
 	}
 
 	private Vector2 GetZoomedBounds(){
