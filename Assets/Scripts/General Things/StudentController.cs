@@ -67,6 +67,14 @@ public class StudentController: MonoBehaviour {
 
 		gm.OverlayGUIFuncs += DrawStudent;
 
+#if UNITY_STANDALONE
+		speakstyle.fontSize = 22;
+#elif UNITY_EDITOR
+		speakstyle.fontSize = 22;
+#else
+		speakstyle.fontSize = 30;
+#endif
+
 	}
 	
 	// Update is called once per frame

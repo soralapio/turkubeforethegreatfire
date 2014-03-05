@@ -4,6 +4,7 @@ using System.Collections;
 using Utils;
 
 public class GUIManager : Singleton<MonoBehaviour> {
+	public GUISkin globalskin;
 	public GUIStyle overlaystyle;
 
 	public delegate void GuiHappening();
