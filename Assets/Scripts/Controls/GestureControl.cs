@@ -125,7 +125,7 @@ namespace InputEventSystem{
 			base.Init();
 			print ("Inherited touch driver!");
 			lastevent = null;
-			cutoff = 0.02f; // might require adjustments
+			cutoff = 1f; // might require adjustments
 			touching = false;
 			dragging = false;
 			lpinch = 0;
@@ -157,6 +157,10 @@ namespace InputEventSystem{
 						ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 100);
 						RaiseDrag(ie);
 						//print ("dragging " + position.magnitude.ToString());
+					}else{
+						ie = new InputEvent((int)InputEvent.EventTypes.Holding, position, position, 0);
+						RaiseHolding(ie);
+
 					}
 					break;
 
