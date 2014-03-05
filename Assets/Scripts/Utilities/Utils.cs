@@ -38,6 +38,8 @@ namespace Utils{
 			return UISCALEMULTIPC;
 			#elif UNITY_ANDROID
 			return UISCALEMULTIMOBILE;
+			#elif UNITY_IOS
+			return UISCALEMULTIMOBILE;
 			#endif
 		}
 
