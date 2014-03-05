@@ -7,21 +7,30 @@ public class PictureFader : MonoBehaviour {
 	public Texture2D topTexture;
 
 	private bool smoothFader = true;
-	private bool sharpFader;
+	private bool enabled;
 
 	private float sliderValue;
 
 	private Color textureAlpha;
 
+	private GUIManager gm;
+	//private InputManager inputmanager;
+
 	// Use this for initialization
 	void Start () {
 
 		smoothFader = true;
-		sharpFader = false;
+		//sharpFader = false;
 
 		textureAlpha = Color.white;
 	
 		sliderValue = 1.0f;
+
+		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
+		//inputmanager = GameObject.Find ("InputManager").GetComponent ("InputManager") as InputManager;
+		gm.OverlayGUIFuncs += MapSlider;
+
+
 	}
 	
 	// Update is called once per frame
@@ -31,61 +40,41 @@ public class PictureFader : MonoBehaviour {
 	
 	}
 
-	void OnGUI()
+	public void Show()
+	{
+		gm.EnterOverlay ();
+		enabled = true;
+
+	}
+
+	public void Hide()
 	{
 
-		sliderValue = GUI.HorizontalSlider (new Rect (Screen.width / 2 - 200, Screen.height - 50, 400, 50), sliderValue, 0f, 1f);
-		
-		GUI.Label(new Rect(50, 50, 50, 50), "Value: " + sliderValue);
+		enabled = false;
+		gm.ExitOverlay ();
 
-		if (smoothFader)
-		GUI.Label(new Rect(50, 100, 100, 50), "Smooth fader");
+	}
 
-	    if (sharpFader)
-		GUI.Label(new Rect(50, 100, 100, 50), "Sharp fader");
+	private void MapSlider()
+	{
 
-		if (GUI.Button (new Rect (50, 150, 100, 100), "Smooth fading")) 
+		if (enabled) 
 		{
-			smoothFader = true;
-			sharpFader = false;
-		}
 
-		if (GUI.Button (new Rect (50, 300, 100, 100), "Sharp fading")) 
-		{
-			sharpFader = true;
-			smoothFader = false;
-		}
-		if (smoothFader) 
-		{
+				sliderValue = GUI.HorizontalSlider (new Rect (Screen.width / 2 - 200, Screen.height - 50, 400, 50), sliderValue, 0f, 1f);
+
+				GUI.Label (new Rect (50, 50, 50, 50), "Value: " + sliderValue);
+
+
 				GUI.DrawTexture (new Rect (Screen.width / 2 - bottomTexture.width / 2, Screen.height / 2 - bottomTexture.height / 2, bottomTexture.width,
-				 bottomTexture.height), bottomTexture);
+			bottomTexture.height), bottomTexture);
 
 				GUI.color = textureAlpha;
 
 				GUI.DrawTexture (new Rect (Screen.width / 2 - topTexture.width / 2, Screen.height / 2 - topTexture.height / 2, topTexture.width,
-   				topTexture.height), topTexture);
+			topTexture.height), topTexture);
 
 				GUI.color = Color.white;
-		} 
-
-		else if (sharpFader) 
-		{
-
-			if (sliderValue > 0.5f)
-			{
-
-				GUI.DrawTexture (new Rect (Screen.width / 2 - topTexture.width / 2, Screen.height / 2 - topTexture.height / 2, topTexture.width,
-				                           topTexture.height), topTexture);
-
-			}
-
-			else
-				GUI.DrawTexture (new Rect (Screen.width / 2 - bottomTexture.width / 2, Screen.height / 2 - bottomTexture.height / 2, bottomTexture.width,
-				                           bottomTexture.height), bottomTexture);
-
 		}
-
-		
-
 	}
 }
