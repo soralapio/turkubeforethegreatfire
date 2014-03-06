@@ -45,7 +45,7 @@ public class StudentController: MonoBehaviour {
 		//studentr = PH.ScaleToRatio(studentr);
 
 		// prepare speech rect
-		textr = new Rect(studentr.width + 10, Screen.height / 2 -200, 400, 550);
+		textr = new Rect(studentr.width + 10, Screen.height / 2 -200, 420, 550);
 		textr = PH.ScaleToRatio(textr);
 		// this is scaled after textr because textr depends on the original position of studentr
 		studentr = PH.ScaleToRatio(studentr);
@@ -72,7 +72,7 @@ public class StudentController: MonoBehaviour {
 #elif UNITY_EDITOR
 		speakstyle.fontSize = 22;
 #else
-		speakstyle.fontSize = 30;
+		speakstyle.fontSize = 26;
 #endif
 
 	}
