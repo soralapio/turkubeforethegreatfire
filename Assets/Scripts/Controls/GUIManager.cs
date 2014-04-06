@@ -4,6 +4,12 @@ using System.Collections;
 using Utils;
 
 public class GUIManager : Singleton<MonoBehaviour> {
+	/*
+	 * Handles gui for now.
+	 * The event things should be centralized!
+	 * Lol.
+	 */
+
 	public GUISkin globalskin;
 	public GUIStyle overlaystyle;
 

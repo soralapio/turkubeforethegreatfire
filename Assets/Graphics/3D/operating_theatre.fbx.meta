@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 2e36aaa9ed04bff40899ed6b09c3934d
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: bench_positions
+    100002: benches
+    100004: benches 1
+    100006: benches 2
+    100008: benches 3
+    100010: benches 4
+    100012: benches 5
+    100014: benches 6
+    100016: ceiling
+    100018: divider_tops
+    100020: divider_walls
+    100022: floor
+    100024: //RootNode
+    100026: walls
+    100028: win_positions
+    100030: win_z1
+    100032: win_z1 1
+    100034: win_z1 2
+    100036: win_z1 3
+    100038: win_z1 4
+    100040: win_z1 5
+    400000: bench_positions
+    400002: benches
+    400004: benches 1
+    400006: benches 2
+    400008: benches 3
+    400010: benches 4
+    400012: benches 5
+    400014: benches 6
+    400016: ceiling
+    400018: divider_tops
+    400020: divider_walls
+    400022: floor
+    400024: //RootNode
+    400026: walls
+    400028: win_positions
+    400030: win_z1
+    400032: win_z1 1
+    400034: win_z1 2
+    400036: win_z1 3
+    400038: win_z1 4
+    400040: win_z1 5
+    2300000: benches
+    2300002: benches 1
+    2300004: benches 2
+    2300006: benches 3
+    2300008: benches 4
+    2300010: benches 5
+    2300012: benches 6
+    2300014: ceiling
+    2300016: divider_tops
+    2300018: divider_walls
+    2300020: floor
+    2300022: walls
+    2300024: win_z1
+    2300026: win_z1 1
+    2300028: win_z1 2
+    2300030: win_z1 3
+    2300032: win_z1 4
+    2300034: win_z1 5
+    3300000: benches
+    3300002: benches 1
+    3300004: benches 2
+    3300006: benches 3
+    3300008: benches 4
+    3300010: benches 5
+    3300012: benches 6
+    3300014: ceiling
+    3300016: divider_tops
+    3300018: divider_walls
+    3300020: floor
+    3300022: walls
+    3300024: win_z1
+    3300026: win_z1 1
+    3300028: win_z1 2
+    3300030: win_z1 3
+    3300032: win_z1 4
+    3300034: win_z1 5
+    4300000: floor
+    4300002: divider_tops
+    4300004: walls
+    4300006: divider_walls
+    4300008: ceiling
+    4300010: win_z1
+    4300012: win_z1
+    4300014: win_z1
+    4300016: win_z1
+    4300018: win_z1
+    4300020: win_z1
+    4300022: benches
+    4300024: benches
+    4300026: benches
+    4300028: benches
+    4300030: benches
+    4300032: benches
+    4300034: benches
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
