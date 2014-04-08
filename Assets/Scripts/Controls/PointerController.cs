@@ -25,18 +25,18 @@ public class PointerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//lastdir = transform.forward;
 	}
 
 	private void HandleDrag(InputEvent ie){
 		// ROTATE VIEW
 		if(!pointerEnabled)return;
 		if(!chc.turnable) return;
-		if(chc.travelling){
-			yrot = -transform.localEulerAngles.x;
-			xrot = transform.localEulerAngles.y;
-			return;
-		}
+		if(chc.travelling) return;
+		// following two lines were inside the IF above
+		//yrot = -transform.localEulerAngles.x;
+		//xrot = transform.localEulerAngles.y;
+
 		Vector3 applydir = lastdir *0.3f + ie.direction * 0.7f;
 		
 		xrot = transform.localEulerAngles.y + applydir.x * ie.force *1.5f;
