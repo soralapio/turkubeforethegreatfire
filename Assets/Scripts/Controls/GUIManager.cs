@@ -13,6 +13,7 @@ public class GUIManager : Singleton<MonoBehaviour> {
 
 	public GUISkin globalskin;
 	public GUIStyle overlaystyle;
+	public GUIStyle legendstyle;
 
 	//public delegate void GuiHappening();
 	public delegate void OnGUIFunction();

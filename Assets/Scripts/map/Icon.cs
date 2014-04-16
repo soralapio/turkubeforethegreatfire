@@ -23,14 +23,12 @@ public abstract class Icon : MonoBehaviour {
 	public abstract void Click();
 
 
-	// these icons can most likely still be clicked:
-	//		maybe fix that, retard joni (when time is right
-	public void Hide(){
+	protected void Hide(){
 		renderer.enabled = false;
 		collider.enabled = false;
 	}
 
-	public void Show(){
+	protected void Show(){
 		renderer.enabled = true;
 		collider.enabled = true;
 	}

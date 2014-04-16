@@ -15,6 +15,15 @@ public class MapIcon : Icon {
 		student = GameObject.FindGameObjectWithTag("StudentController").GetComponent<StudentController>();
 
 		date = "";
+		EM.SetMapIconsVisibility += HandleSetMapIconsVisibility;
+	}
+	
+	void HandleSetMapIconsVisibility (object o, SetMapIconsVisibilityEventArgs e)
+	{
+		if(e.Type == "text"){
+			if(e.Visibility) Show();
+			else Hide ();
+		}
 	}
 	
 	// Update is called once per frame

@@ -12,6 +12,15 @@ public class SceneIcon : Icon {
 	void Start () {
 		EM = EventManager.Instance;
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
+		EM.SetMapIconsVisibility += HandleSetMapIconsVisibility;
+	}
+
+	void HandleSetMapIconsVisibility (object o, SetMapIconsVisibilityEventArgs e)
+	{
+		if(e.Type == "scene"){
+			if(e.Visibility) Show();
+			else Hide ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -25,6 +34,7 @@ public class SceneIcon : Icon {
 
 	public override void Click(){
 		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
+		EM.OnSceneSwap(this, new SceneSwapEventArgs(scenename));
 		gm.OverlayGUIFuncs += Loading;
 		Application.LoadLevel(scenename);
 	}

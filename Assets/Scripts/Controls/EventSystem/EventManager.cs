@@ -20,16 +20,6 @@ namespace EventSystem{
 		 * 
 		 * THIS CLASS IS ALSO A SINGLETON. RECEIVE INSTANCE USING Instance GETTER!
 		 */
-
-		/*
-		private static readonly EventManager instance = new EventManager();
-
-
-		public static EventManager Instance{
-			get{
-				return instance;
-			}
-		}
-		*/
+		
 	}
 }
