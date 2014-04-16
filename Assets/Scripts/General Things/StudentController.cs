@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
 using PH = Utils.PlatformHelper;
 
 public class StudentController: MonoBehaviour {
@@ -34,9 +35,12 @@ public class StudentController: MonoBehaviour {
 	private Rect studentr;
 	private Rect textr;
 
+	private EventManager EM;
+
 	private GUIManager gm;
 	// Use this for initialization
 	void Start () {
+		EM = EventManager.Instance;
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		//w618 h893
 		// prepare student rect
@@ -65,6 +69,8 @@ public class StudentController: MonoBehaviour {
 		movet = 0;
 		moving = false;
 
+		EM.DisplayLetter += HandleDisplayLetter;
+
 		gm.OverlayGUIFuncs += DrawStudent;
 
 #if UNITY_STANDALONE
@@ -75,6 +81,15 @@ public class StudentController: MonoBehaviour {
 		speakstyle.fontSize = 26;
 #endif
 
+	}
+
+	void HandleDisplayLetter (object o, DisplayLetterEventArgs e)
+	{
+		if(moving)return;
+		studentText = e.Letter.GetPages();
+		moving = true;
+		movet = 0;
+		anim = ShowComponents;
 	}
 	
 	// Update is called once per frame
@@ -159,7 +174,8 @@ public class StudentController: MonoBehaviour {
 		}
 		else{
 			moving = false;
-			gm.ExitOverlay();
+			EM.OnExitOverlay(this, new ExitOverlayEventArgs());
+			EM.CountOnEnters();
 		}
 	}
 

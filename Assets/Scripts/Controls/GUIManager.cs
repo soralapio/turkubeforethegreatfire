@@ -2,6 +2,7 @@
 using System.Collections;
 
 using Utils;
+using EventSystem;
 
 public class GUIManager : Singleton<MonoBehaviour> {
 	/*
@@ -13,22 +14,35 @@ public class GUIManager : Singleton<MonoBehaviour> {
 	public GUISkin globalskin;
 	public GUIStyle overlaystyle;
 
-	public delegate void GuiHappening();
+	//public delegate void GuiHappening();
 	public delegate void OnGUIFunction();
 
-	public event GuiHappening EnteredOverlayListeners;
-	public event GuiHappening ExitedOverlayListeners;
+	//public event GuiHappening EnteredOverlayListeners;
+	//public event GuiHappening ExitedOverlayListeners;
 
 	// add all ongui things here. makes things more efficient:
-	public event OnGUIFunction NormalGUIFuncs; 
-	public event OnGUIFunction OverlayGUIFuncs;
+	public OnGUIFunction NormalGUIFuncs; 
+	public OnGUIFunction OverlayGUIFuncs;
+
+	private EventManager EM;
 
 	private bool overlay;
 
 	void Awake(){
+		EM = EventManager.Instance;
 		overlay = false;
-	}
 
+		// nameless eventhandlers.
+		EM.EnterOverlay += delegate {
+			overlay = true;
+				};
+		EM.ExitOverlay += delegate {
+			overlay = false;
+				};
+	}
+	/*
+	 * 
+	 * DEPRECATED STUFF
 	public void EnterOverlay(){
 		overlay = true;
 		if(EnteredOverlayListeners != null)EnteredOverlayListeners();
@@ -38,6 +52,7 @@ public class GUIManager : Singleton<MonoBehaviour> {
 		overlay = false;
 		if(ExitedOverlayListeners != null)ExitedOverlayListeners();
 	}
+	*/
 
 	void OnGUI(){
 		if(overlay){

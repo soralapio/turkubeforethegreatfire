@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
 using InputEventSystem;
 using PH = Utils.PlatformHelper;
 public class CoffeeHouseCamera : MonoBehaviour {
@@ -10,7 +11,8 @@ public class CoffeeHouseCamera : MonoBehaviour {
 
 	private InputManager im;
 
-	private GUIManager gm;
+	private EventManager EM;
+	//private GUIManager gm; OLD
 
 
 	// adventuring camera stuff:
@@ -22,14 +24,23 @@ public class CoffeeHouseCamera : MonoBehaviour {
 	private bool notInOriginalPosition;
 	private float timetravelled;
 
+	private bool actualclick; // this is used in the mapcameracontrol.cs, too. sucks for now.
+
 	// Use this for initialization
 	void Start () {
-		im = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>();
-		im.pointerUpListeners += HandleClick;
+		EM = EventManager.Instance;
 
+		im = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>();
+		im.PointerUp += HandleClick;
+		im.PointerDrag += HandlePointerDrag;
+
+		/*
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		gm.EnteredOverlayListeners += HandleOverlayEnter;
 		gm.ExitedOverlayListeners += HandleOverlayExit;
+		*/
+		EM.EnterOverlay += HandleEnterOverlay;
+		EM.ExitOverlay += HandleExitOverlay;
 
 		originalCameraPosition = gameObject.transform.position;
 
@@ -41,21 +52,32 @@ public class CoffeeHouseCamera : MonoBehaviour {
 		turnable = true;
 	}
 
-	private void HandleOverlayEnter(){
+	void HandlePointerDrag (object o, DragEventArgs e)
+	{
+		actualclick = false;
+	}
+
+	private void HandleEnterOverlay(object o, EnterOverlayEventArgs e){
 		turnable = false;
-		im.pointerUpListeners -= HandleClick;
+		im.PointerUp -= HandleClick;
+		im.PointerDrag -= HandlePointerDrag;
 
 	}
 
-	private void HandleOverlayExit(){
+	private void HandleExitOverlay(object o, ExitOverlayEventArgs e){
 		turnable = true;
-		im.pointerUpListeners += HandleClick;
+		im.PointerUp += HandleClick;
+		im.PointerDrag += HandlePointerDrag;
 	}
 
-	private void HandleClick(InputEvent ie){
+	private void HandleClick(object o, PointerUpEventArgs e){
+		if(!actualclick){
+			actualclick = true;
+			return;
+		}
 		// SEARCH FOR POI
 		if(travelling) return;
-		Ray panpoint = camera.ScreenPointToRay( new Vector3(ie.endpoint.x , ie.endpoint.y));
+		Ray panpoint = camera.ScreenPointToRay( new Vector3(e.Position.x , e.Position.y));
 		RaycastHit hitinfo;
 		if(Physics.Raycast(panpoint, out hitinfo)){
 			if(hitinfo.transform.GetComponent<PointOfInterest>() != null){
@@ -71,6 +93,7 @@ public class CoffeeHouseCamera : MonoBehaviour {
 				hitinfo.transform.GetComponent<Interactable>().GetClicked();
 			}
 		}
+		actualclick = true;
 	}
 
 

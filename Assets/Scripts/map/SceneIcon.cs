@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
+
 public class SceneIcon : Icon {
 	public GUIStyle loadingstyle;
 	public string scenename;
 	private GUIManager gm;
-	private InputManager im;
+	private EventManager EM;
 	// Use this for initialization
 	void Start () {
+		EM = EventManager.Instance;
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 	}
 	
@@ -21,7 +24,7 @@ public class SceneIcon : Icon {
 	}
 
 	public override void Click(){
-		gm.EnterOverlay();
+		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
 		gm.OverlayGUIFuncs += Loading;
 		Application.LoadLevel(scenename);
 	}

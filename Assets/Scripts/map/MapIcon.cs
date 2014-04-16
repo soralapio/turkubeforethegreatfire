@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
+
 public class MapIcon : Icon {
+	private EventManager EM;
 	public Story story;
+	public string date;
 	public int identity;
 	private StudentController student;
-	private GUIManager gm;
 	// Use this for initialization
 	void Start () {
-		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
+		EM = EventManager.Instance;
 		student = GameObject.FindGameObjectWithTag("StudentController").GetComponent<StudentController>();
+
+		date = "";
 	}
 	
 	// Update is called once per frame
@@ -18,7 +23,8 @@ public class MapIcon : Icon {
 	}
 	
 	public override void Click(){
-		gm.EnterOverlay();
-		student.Show (story);
+		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
+		EM.OnDisplayLetter(this, new DisplayLetterEventArgs(story, date));
+		//student.Show (story);
 	}
 }

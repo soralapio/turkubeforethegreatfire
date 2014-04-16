@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
 public class Letter : Interactable {
 	public Story story;
-	private GUIManager gm;
 	private StudentController student;
+
+	private EventManager EM;
+
 	// Use this for initialization
 	void Start () {
-		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
+		EM = EventManager.Instance;
+		
 		student = GameObject.FindGameObjectWithTag("StudentController").GetComponent<StudentController>();
 	}
 	
@@ -18,7 +22,7 @@ public class Letter : Interactable {
 
 	public override void GetClicked ()
 	{
-		gm.EnterOverlay();
+		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
 		student.Show (story);
 	}
 }

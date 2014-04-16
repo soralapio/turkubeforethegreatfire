@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
 using InputEventSystem;
 public class PointerController : MonoBehaviour {
 	private InputManager im;
@@ -16,7 +17,7 @@ public class PointerController : MonoBehaviour {
 		chc = gameObject.GetComponent<CoffeeHouseCamera>();
 
 		im = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>() as InputManager;
-		im.dragListeners += HandleDrag;
+		im.PointerDrag += HandleDrag;
 
 		lastdir = Vector3.zero;
 		yrot = -transform.localEulerAngles.x;
@@ -28,7 +29,7 @@ public class PointerController : MonoBehaviour {
 		//lastdir = transform.forward;
 	}
 
-	private void HandleDrag(InputEvent ie){
+	private void HandleDrag(object o, DragEventArgs e){
 		// ROTATE VIEW
 		if(!pointerEnabled)return;
 		if(!chc.turnable) return;
@@ -37,11 +38,11 @@ public class PointerController : MonoBehaviour {
 		//yrot = -transform.localEulerAngles.x;
 		//xrot = transform.localEulerAngles.y;
 
-		Vector3 applydir = lastdir *0.3f + ie.direction * 0.7f;
+		Vector3 applydir = lastdir *0.3f + e.Direction * 0.7f;
 		
-		xrot = transform.localEulerAngles.y + applydir.x * ie.force *1.5f;
+		xrot = transform.localEulerAngles.y + applydir.x * e.Force *1.5f;
 		
-		yrot += applydir.y * ie.force*1.5f;
+		yrot += applydir.y * e.Force*1.5f;
 		yrot = Mathf.Clamp (yrot, -60, 60);
 		
 		transform.localEulerAngles = new Vector3(-yrot, xrot, 0);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
 public class NewsPaperShower : MonoBehaviour {
 
 	public Texture2D[] paperPages;
@@ -14,8 +15,11 @@ public class NewsPaperShower : MonoBehaviour {
 
 	private GUIManager gm;
 
+	private EventManager EM;
+
 	// Use this for initialization
 	void Start () {
+		EM = EventManager.Instance;
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		pageToShow = 0;
 	
@@ -36,7 +40,7 @@ public class NewsPaperShower : MonoBehaviour {
 
 	public void StartShowing()
 	{
-		gm.EnterOverlay();
+		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
 		showingPaper = true;
 
 	}
@@ -90,7 +94,8 @@ public class NewsPaperShower : MonoBehaviour {
 					
 					showingPaper = false;
 					pageToShow = 0;
-					gm.ExitOverlay();
+					EM.OnExitOverlay(this, new ExitOverlayEventArgs());
+					EM.CountOnEnters();
 				}
 				
 			}

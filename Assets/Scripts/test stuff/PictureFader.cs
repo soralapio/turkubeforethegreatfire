@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using EventSystem;
+
 public class PictureFader : MonoBehaviour {
+
+	private EventManager EM;
 
 	public Texture2D bottomTexture;
 	public Texture2D topTexture;
@@ -19,6 +23,8 @@ public class PictureFader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		EM = EventManager.Instance;
+
 		smoothFader = true;
 		//sharpFader = false;
 
@@ -28,7 +34,7 @@ public class PictureFader : MonoBehaviour {
 
 		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		//inputmanager = GameObject.Find ("InputManager").GetComponent ("InputManager") as InputManager;
-		gm.OverlayGUIFuncs += MapSlider;
+
 
 
 	}
@@ -42,16 +48,17 @@ public class PictureFader : MonoBehaviour {
 
 	public void Show()
 	{
-		gm.EnterOverlay ();
+		gm.OverlayGUIFuncs += MapSlider;
+		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
 		enabled = true;
 
 	}
 
 	public void Hide()
 	{
-
+		gm.OverlayGUIFuncs -= MapSlider;
 		enabled = false;
-		gm.ExitOverlay ();
+		EM.OnExitOverlay(this, new ExitOverlayEventArgs());
 
 	}
 
