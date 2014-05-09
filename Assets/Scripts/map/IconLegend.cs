@@ -6,10 +6,12 @@ public class IconLegend : MonoBehaviour {
 	public string name;
 	private Vector3 pos;
 	
-	private Vector2 tw;
+	private Vector2 tw; // legend text width
 	private GUIManager GM;
 	private EventManager EM;
 	private string type;
+
+	private Rect renderbounds;
 	// Use this for initialization
 	void Start () {
 		EM = EventManager.Instance;
@@ -25,6 +27,9 @@ public class IconLegend : MonoBehaviour {
 		else type = "text";
 
 		EM.SetMapIconsVisibility += HandleSetMapIconsVisibility;
+
+		renderbounds = gameObject.GetComponent<SpriteRenderer>().sprite.textureRect;
+		//print("lol " + renderbounds.ToString());
 	}
 
 	void HandleSetMapIconsVisibility (object o, SetMapIconsVisibilityEventArgs e)
@@ -37,11 +42,11 @@ public class IconLegend : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		pos = Camera.main.WorldToScreenPoint(transform.position - new Vector3(0,0,transform.localScale.y / 2f));
+		pos = Camera.main.WorldToScreenPoint(transform.position);// - new Vector3(0,0,renderbounds.height / 2f));
 	}
 	
 
 	void RenderNames(){
-		GUI.Label(new Rect(pos.x-tw.x/2,Screen.height-pos.y,tw.x,tw.y), name, GM.legendstyle);
+		GUI.Label(new Rect(pos.x-tw.x/2,Screen.height - pos.y ,tw.x,tw.y), name, GM.legendstyle);
 	}
 }

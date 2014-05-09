@@ -29,13 +29,13 @@ public class SceneIcon : Icon {
 	}
 
 	private void Loading(){
-		GUI.Box(new Rect(Screen.width/2 - 100, Screen.height/2 - 50, 200, 100), "Ladataan...", loadingstyle);
+		GUI.Box(new Rect(Screen.width/2 - 100, Screen.height/2 - 50, 200, 100), "Ladataan...", loadingstyle); // this doesnt belong here.
 	}
 
 	public override void Click(){
 		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
 		EM.OnSceneSwap(this, new SceneSwapEventArgs(scenename));
 		gm.OverlayGUIFuncs += Loading;
-		Application.LoadLevel(scenename);
+		Application.LoadLevel(scenename); // this will be removed from here.
 	}
 }

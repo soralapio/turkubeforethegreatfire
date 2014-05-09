@@ -34,6 +34,8 @@ public class StudentController: MonoBehaviour {
 
 	private Rect studentr;
 	private Rect textr;
+	private float textboxheightp = 0.7f;
+	private float textboxwidthofheightp;
 
 	private EventManager EM;
 
@@ -49,10 +51,11 @@ public class StudentController: MonoBehaviour {
 		//studentr = PH.ScaleToRatio(studentr);
 
 		// prepare speech rect
-		textr = new Rect(studentr.width + 10, Screen.height / 2 -200, 420, 550);
-		textr = PH.ScaleToRatio(textr);
+		//textr = PH.ScaleToRatio(textr);
 		// this is scaled after textr because textr depends on the original position of studentr
 		studentr = PH.ScaleToRatio(studentr);
+		textboxwidthofheightp =textboxheightp/Mathf.Sqrt(2);
+		textr = new Rect(studentr.width + 10 , Screen.height * (1-textboxheightp)/2,  Screen.height*textboxwidthofheightp ,Screen.height*textboxheightp);
 		print (studentr.ToString());
 		
 
@@ -72,13 +75,14 @@ public class StudentController: MonoBehaviour {
 		EM.DisplayLetter += HandleDisplayLetter;
 
 		gm.OverlayGUIFuncs += DrawStudent;
+		
 
 #if UNITY_STANDALONE
-		speakstyle.fontSize = 22;
+		speakstyle.fontSize = 27;
 #elif UNITY_EDITOR
 		speakstyle.fontSize = 22;
 #else
-		speakstyle.fontSize = 26;
+		speakstyle.fontSize = 36;
 #endif
 
 	}
@@ -109,7 +113,7 @@ public class StudentController: MonoBehaviour {
 		if (readyToShow) {
 			if (textPageToShow != 0) {
 				
-				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), previousButton)) {
+				if (GUI.Button (new Rect (textcurrent.x + textr.width + 20, textcurrent.y , previousButton.width, previousButton.height), previousButton, "Label")) {
 					
 					textPageToShow--;
 					
@@ -119,7 +123,7 @@ public class StudentController: MonoBehaviour {
 			
 			if (textPageToShow != studentText.Length - 1) {
 				
-				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), nextButton)) {
+				if (GUI.Button (new Rect (textcurrent.x + textr.width + 20, textcurrent.y + (textr.height - previousButton.height) / 2 , previousButton.width, previousButton.height), nextButton, "Label")) {
 					
 					textPageToShow++;
 					
@@ -129,14 +133,18 @@ public class StudentController: MonoBehaviour {
 			
 			if (textPageToShow == studentText.Length - 1) {
 				
-				if (GUI.Button (new Rect (textcurrent.x - previousButton.width / 2 + textr.width + 25, textcurrent.y + textr.height + 25, previousButton.width, previousButton.height), closeButton)) {
-					textPageToShow = 0;
-					Hide ();
+				if (GUI.Button (new Rect (textcurrent.x + textr.width + 20, textcurrent.y + textr.height - previousButton.height, previousButton.width, previousButton.height), closeButton, "Label")) {
+					CloseText();
 					
 				}
 				
 			}
 		}
+	}
+
+	private void CloseText(){ 
+		textPageToShow = 0;
+		Hide ();
 	}
 
 	public void Show(Story story){
