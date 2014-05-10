@@ -18,7 +18,13 @@ public class IconLegend : MonoBehaviour {
 		GM = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
 		pos = Vector3.zero;
 		print (transform.localScale.ToString());
-
+		#if UNITY_STANDALONE
+		GM.legendstyle.fontSize = 22;
+		#elif UNITY_EDITOR
+		GM.legendstyle.fontSize = 22;
+		#else
+		GM.legendstyle.fontSize = 35;
+		#endif
 		tw = GM.legendstyle.CalcSize(new GUIContent(name));
 		tw += new Vector2(10, 0);
 		GM.NormalGUIFuncs += RenderNames;

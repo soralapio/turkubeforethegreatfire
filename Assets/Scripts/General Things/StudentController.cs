@@ -82,7 +82,7 @@ public class StudentController: MonoBehaviour {
 #elif UNITY_EDITOR
 		speakstyle.fontSize = 22;
 #else
-		speakstyle.fontSize = 36;
+		speakstyle.fontSize = 30;
 #endif
 
 	}
