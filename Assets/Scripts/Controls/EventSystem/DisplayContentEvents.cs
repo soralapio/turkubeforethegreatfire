@@ -4,15 +4,15 @@ using System.Collections;
 using Utils;
 namespace EventSystem{
 	public class DisplayLetterEventArgs : System.EventArgs{
-		private Story _story;
+		private string _story;
 		private string _date;
 
-		public DisplayLetterEventArgs(Story letter, string date){
+		public DisplayLetterEventArgs(string letter, string date){
 			_story = letter;
 			_date = date;
 		}
 
-		public Story Letter{
+		public string Letter{
 			get { return _story; }
 		}
 

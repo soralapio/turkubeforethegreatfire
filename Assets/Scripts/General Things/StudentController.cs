@@ -23,7 +23,7 @@ public class StudentController: MonoBehaviour {
 	public Texture2D nextButton;
 	public Texture2D closeButton;
 
-	public string[] studentText;
+	private string[] studentText;
 
 	private bool readyToShow;
 
@@ -90,7 +90,7 @@ public class StudentController: MonoBehaviour {
 	void HandleDisplayLetter (object o, DisplayLetterEventArgs e)
 	{
 		if(moving)return;
-		studentText = e.Letter.GetPages();
+		studentText = SplitIntoPages(e.Letter);
 		moving = true;
 		movet = 0;
 		anim = ShowComponents;
@@ -103,9 +103,31 @@ public class StudentController: MonoBehaviour {
 		}
 	}
 
+	string[] SplitIntoPages (string rawtext)
+	{
+		float maxh = speakstyle.CalcHeight(new GUIContent(rawtext), textr.width - speakstyle.padding.left - speakstyle.padding.right);
+		float fpages = maxh/(textr.height );
+		int charsperpage = (int)(rawtext.Length/fpages);
+
+		// this is a piece modified from the Story class.
+		// this splitting might be better moved to some tools class.
+		string[] pages = new string[(int)fpages + 1];
+		for(int a = 0; a < pages.Length; a++)pages[a]="";
+
+		string[] words = rawtext.Split(' ');
+
+		int page = 0;
+		for(int i = 0; i < words.Length; i++){
+			if(pages[page].Length + words[i].Length > charsperpage && page < pages.Length -1) page++;
+			pages[page] += words[i] + " ";
+
+		}
+		return pages;
+	}
+
 	private void DrawStudent(){
 		// this function is passed as a delegate to GUIManager
-
+		if(!readyToShow) return;
 		GUI.Box(new Rect(textcurrent.x, textcurrent.y, textr.width, textr.height), studentText[textPageToShow], speakstyle);
 		GUI.Label(new Rect( studentcurrent.x, studentcurrent.y, studentr.width, studentr.height), studenttexture);
 		

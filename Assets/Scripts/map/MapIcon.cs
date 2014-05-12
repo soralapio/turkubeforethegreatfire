@@ -5,7 +5,7 @@ using EventSystem;
 
 public class MapIcon : Icon {
 	private EventManager EM;
-	public Story story;
+	public string story;
 	public string date;
 	public int identity;
 	private StudentController student;
