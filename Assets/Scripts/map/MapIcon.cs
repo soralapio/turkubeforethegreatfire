@@ -2,7 +2,7 @@
 using System.Collections;
 
 using EventSystem;
-
+using CustomGUI;
 public class MapIcon : Icon {
 	private EventManager EM;
 	public string story;

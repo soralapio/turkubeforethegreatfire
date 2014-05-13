@@ -2,6 +2,7 @@
 using System.Collections;
 
 using EventSystem;
+using CustomGUI;
 public class Letter : Interactable {
 	public Story story;
 	private StudentController student;
@@ -23,6 +24,6 @@ public class Letter : Interactable {
 	public override void GetClicked ()
 	{
 		EM.OnEnterOverlay(this, new EnterOverlayEventArgs());
-		student.Show (story);
+		EM.OnDisplayLetter(this, new DisplayLetterEventArgs(story.story, ""));
 	}
 }

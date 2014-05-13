@@ -3,7 +3,7 @@ using System.Collections;
 
 using Utils;
 using EventSystem;
-
+using CustomGUI;
 public class GUIManager : Singleton<MonoBehaviour> {
 	/*
 	 * Handles gui for now.
@@ -16,14 +16,13 @@ public class GUIManager : Singleton<MonoBehaviour> {
 	public GUIStyle legendstyle;
 
 	//public delegate void GuiHappening();
-	public delegate void OnGUIFunction();
 
 	//public event GuiHappening EnteredOverlayListeners;
 	//public event GuiHappening ExitedOverlayListeners;
 
 	// add all ongui things here. makes things more efficient:
-	public OnGUIFunction NormalGUIFuncs; 
-	public OnGUIFunction OverlayGUIFuncs;
+	public UIDrawDelegate NormalGUIFuncs; 
+	public UIDrawDelegate OverlayGUIFuncs;
 
 	private EventManager EM;
 
