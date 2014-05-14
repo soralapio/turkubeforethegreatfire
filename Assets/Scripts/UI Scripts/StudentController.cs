@@ -72,14 +72,15 @@ namespace CustomGUI{
 
 			EM.DisplayLetter += HandleDisplayLetter;
 
-			gm.OverlayGUIFuncs += DrawStudent;
-			gm.OverlayGUIFuncs += textbox.GetUIDrawDelegate();
+
 
 		}
 
 		void HandleDisplayLetter (object o, DisplayLetterEventArgs e)
 		{
 			if(moving)return;
+			gm.OverlayGUIFuncs += DrawStudent;
+			gm.OverlayGUIFuncs += textbox.GetUIDrawDelegate();
 			textbox.SetText(e.Letter);
 			moving = true;
 			movet = 0;
@@ -142,6 +143,8 @@ namespace CustomGUI{
 				textcurrent = Vector3.Lerp(textshow, texthide, movet);
 			}
 			else{
+				gm.OverlayGUIFuncs -= DrawStudent;
+				gm.OverlayGUIFuncs -= textbox.GetUIDrawDelegate();
 				moving = false;
 				EM.OnExitOverlay(this, new ExitOverlayEventArgs());
 				EM.CountOnEnters();

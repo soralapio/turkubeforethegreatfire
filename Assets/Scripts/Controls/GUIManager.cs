@@ -4,7 +4,7 @@ using System.Collections;
 using Utils;
 using EventSystem;
 using CustomGUI;
-public class GUIManager : Singleton<MonoBehaviour> {
+public class GUIManager : Singleton<GUIManager> {
 	/*
 	 * Handles gui for now.
 	 * The event things should be centralized!
@@ -15,14 +15,11 @@ public class GUIManager : Singleton<MonoBehaviour> {
 	public GUIStyle overlaystyle;
 	public GUIStyle legendstyle;
 
-	//public delegate void GuiHappening();
-
-	//public event GuiHappening EnteredOverlayListeners;
-	//public event GuiHappening ExitedOverlayListeners;
 
 	// add all ongui things here. makes things more efficient:
 	public UIDrawDelegate NormalGUIFuncs; 
 	public UIDrawDelegate OverlayGUIFuncs;
+
 
 	private EventManager EM;
 
@@ -39,20 +36,10 @@ public class GUIManager : Singleton<MonoBehaviour> {
 		EM.ExitOverlay += delegate {
 			overlay = false;
 				};
-	}
-	/*
-	 * 
-	 * DEPRECATED STUFF
-	public void EnterOverlay(){
-		overlay = true;
-		if(EnteredOverlayListeners != null)EnteredOverlayListeners();
+
+		this.useGUILayout = false; // disable GUILayouts. doubles performance, or somesuch
 	}
 
-	public void ExitOverlay(){
-		overlay = false;
-		if(ExitedOverlayListeners != null)ExitedOverlayListeners();
-	}
-	*/
 
 	void OnGUI(){
 		if(overlay){
