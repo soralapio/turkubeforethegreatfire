@@ -34,6 +34,7 @@ public class InputManager :
 	
 	void Update(){
 		UpdateEventState();
+		if(Input.GetKey(KeyCode.Escape)) Application.Quit();
 	}
 	
 	

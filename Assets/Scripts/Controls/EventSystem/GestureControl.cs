@@ -129,7 +129,7 @@ namespace InputEventSystem{
 			base.Init();
 			print ("Inherited touch driver!");
 			lastevent = null;
-			cutoff = 0.001f; // might require adjustments
+			cutoff = 0.0005f; // might require adjustments
 			touching = false;
 			dragging = false;
 			lpinch = 0;
@@ -157,11 +157,11 @@ namespace InputEventSystem{
 					break;
 
 				case TouchPhase.Moved:
-					dragforce = touch.deltaPosition.magnitude/pinchdivider;
+					dragforce = (lastevent.Position - position).magnitude/pinchdivider;
 					if(dragforce > cutoff){
 						dragging = true;
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 100);
-						ie = new DragEventArgs(lastevent.Position, position, dragforce * 100);
+						ie = new DragEventArgs(lastevent.Position, position, dragforce * 140);
 						OnDrag((DragEventArgs)ie);
 						//print ("dragging " + (lastevent.endpoint-position).magnitude.ToString());
 					}
@@ -193,10 +193,10 @@ namespace InputEventSystem{
 				default: // for now: catches both ENDED and CANCELED
 					touching = false;
 					if(dragging){
-						dragforce = touch.deltaPosition.magnitude/pinchdivider;
+						dragforce = (lastevent.Position - position).magnitude/pinchdivider;
 						// end drag:
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 5);
-						ie = new DragEventArgs(lastevent.Position, position, dragforce * 100);
+						ie = new DragEventArgs(lastevent.Position, position, dragforce * 140);
 						OnDrag((DragEventArgs)ie);
 
 						print ("drag ended, fuck");

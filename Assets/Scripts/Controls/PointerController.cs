@@ -14,6 +14,8 @@ public class PointerController : MonoBehaviour {
 	public bool pointerEnabled;
 
 	private CoffeeHouseCamera chc;
+
+	float inverseMulti;
 	// Use this for initialization
 	void Start () {
 		wantToBeEuler = transform.localEulerAngles;
@@ -25,6 +27,18 @@ public class PointerController : MonoBehaviour {
 		lastdir = Vector3.zero;
 		yrot = -transform.localEulerAngles.x;
 		xrot = transform.localEulerAngles.y;
+
+		#if UNITY_ANDROID
+		inverseMulti = -1;
+		#elif UNITY_IPHONE
+		inverseMulti = -1;
+		#elif UNITY_IOS
+		inverseMulti = -1;
+		#elif UNITY_EDITOR
+		inverseMulti = 1;
+		#else
+		inverseMulti = 1;
+		#endif
 	}
 	
 	// Update is called once per frame
@@ -45,7 +59,7 @@ public class PointerController : MonoBehaviour {
 		//yrot = -transform.localEulerAngles.x;
 		//xrot = transform.localEulerAngles.y;
 
-		Vector3 applydir = lastdir *0.3f + e.Direction*1f;// * 0.7f;
+		Vector3 applydir = lastdir *0.3f + e.Direction*inverseMulti;// * 0.7f;
 		
 		xrot = transform.localEulerAngles.y + applydir.x * e.Force *10f;
 		

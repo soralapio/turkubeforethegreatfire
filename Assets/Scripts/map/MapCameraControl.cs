@@ -8,8 +8,8 @@ public class MapCameraControl : MonoBehaviour {
 	private const float ORTHOMAXSIZE = 6;
 	private const float ORTHOMINSIZE = 2;
 	private const float ORTHODIST = 4; // orthomaxsize - orthominsize
-	private const float VERTICALBOUNDING = 8; // = about map.height/2 + 2
-	private const float HORIZONTALBOUNDING = 8; // = about map.width/2 + 2
+	private const float VERTICALBOUNDING = 9; // = about map.height/2 + 2
+	private const float HORIZONTALBOUNDING = 9; // = about map.width/2 + 2
 	
 	private bool actualclick; // this should go into the input events but dont have time to fix that right now.
 
