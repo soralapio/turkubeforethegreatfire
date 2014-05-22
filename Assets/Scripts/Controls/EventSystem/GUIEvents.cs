@@ -4,7 +4,10 @@ using System.Collections;
 
 namespace EventSystem{
 
-	// these events are stubs for now.
+	/*
+	 * Event things for guioverlay (the darkened thing that happens)
+	 * 
+	 */
 	public class EnterOverlayEventArgs : System.EventArgs {
 		public EnterOverlayEventArgs(){
 		}
@@ -15,7 +18,6 @@ namespace EventSystem{
 
 		}
 	}
-	
 
 	public partial class EventManager{
 		public event EventHandler<EnterOverlayEventArgs> EnterOverlay;
@@ -43,7 +45,10 @@ namespace EventSystem{
 		}
 	}
 
-
+	/*
+	 * Event things for setting visibility of map icons.
+	 * 
+	 */
 	public class SetMapIconsVisibilityEventArgs : System.EventArgs{
 		private string _type;
 		private bool _vis;

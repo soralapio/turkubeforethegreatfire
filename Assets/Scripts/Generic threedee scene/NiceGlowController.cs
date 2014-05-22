@@ -21,7 +21,7 @@ public class NiceGlowController : MonoBehaviour {
 
 		float dot = Vector3.Dot(cam2glow.normalized, Camera.main.transform.forward);
 
-		if(dot > 0.93f){
+		if(dot < 0.93f){
 			particleSystem.enableEmission = true;
 		}
 		else{

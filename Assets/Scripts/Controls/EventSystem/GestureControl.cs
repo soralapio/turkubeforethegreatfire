@@ -129,7 +129,7 @@ namespace InputEventSystem{
 			base.Init();
 			print ("Inherited touch driver!");
 			lastevent = null;
-			cutoff = 0.02f; // might require adjustments
+			cutoff = 0.001f; // might require adjustments
 			touching = false;
 			dragging = false;
 			lpinch = 0;
@@ -157,10 +157,11 @@ namespace InputEventSystem{
 					break;
 
 				case TouchPhase.Moved:
-					if(touch.deltaPosition.magnitude > cutoff){
+					dragforce = touch.deltaPosition.magnitude/pinchdivider;
+					if(dragforce > cutoff){
 						dragging = true;
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 100);
-						ie = new DragEventArgs(lastevent.Position, position, (lastevent.Position-position).magnitude/pinchdivider * 100);
+						ie = new DragEventArgs(lastevent.Position, position, dragforce * 100);
 						OnDrag((DragEventArgs)ie);
 						//print ("dragging " + (lastevent.endpoint-position).magnitude.ToString());
 					}
@@ -175,6 +176,7 @@ namespace InputEventSystem{
 
 				case TouchPhase.Stationary:
 					if(dragging){
+
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, position, position, 0);
 						ie = new DragEventArgs(position, position, 0);
 						OnDrag((DragEventArgs)ie);
@@ -191,9 +193,10 @@ namespace InputEventSystem{
 				default: // for now: catches both ENDED and CANCELED
 					touching = false;
 					if(dragging){
+						dragforce = touch.deltaPosition.magnitude/pinchdivider;
 						// end drag:
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, position, (lastevent.endpoint-position).magnitude/pinchdivider * 5);
-						ie = new DragEventArgs(lastevent.Position, position, (lastevent.Position-position).magnitude/pinchdivider * 5);
+						ie = new DragEventArgs(lastevent.Position, position, dragforce * 100);
 						OnDrag((DragEventArgs)ie);
 
 						print ("drag ended, fuck");
@@ -243,15 +246,17 @@ namespace InputEventSystem{
 	public class MouseInputDriver : InputDriver{
 		private bool down;
 		private bool dragging;
+		private float pinchdivider;
 		protected override void Init ()
 		{
 			base.Init();
 			print ("Inherited mouse driver!");
 			lastevent = null;
-			cutoff = 0f; // this might need tweaking for optimal experience
+			cutoff = 0.001f; // this might need tweaking for optimal experience
 			dragforce = 0f;
 			down = false;
 			dragging = false;
+			pinchdivider = Mathf.Sqrt(Mathf.Pow(Screen.width, 2) + Mathf.Pow(Screen.height, 2));
 		}
 
 		protected override void UpdateEventState(){
@@ -269,13 +274,13 @@ namespace InputEventSystem{
 					down = true;
 				}
 				else{
-
-					if((lastevent.Position - position).magnitude > cutoff || dragging){
+					dragforce = (lastevent.Position - position).magnitude / pinchdivider;
+					if(dragforce > cutoff || dragging){
 						dragging = true;
-						dragforce = 1;//no idea if this is a good idea. DEPRECATED: smoothDrag((Input.mousePosition + lastevent.endpoint).magnitude);
+						//dragforce = 1;//no idea if this is a good idea. DEPRECATED: smoothDrag((Input.mousePosition + lastevent.endpoint).magnitude);
 
 						//ie = new InputEvent((int)InputEvent.EventTypes.Drag, lastevent.endpoint, Input.mousePosition, dragforce);
-						ie = new DragEventArgs(lastevent.Position, position, dragforce);
+						ie = new DragEventArgs(lastevent.Position, position, dragforce * 100);
 
 						OnDrag((DragEventArgs)ie);
 					}
@@ -291,7 +296,8 @@ namespace InputEventSystem{
 			else if(down){
 				if(dragging){
 					// end drag:
-					ie = new DragEventArgs(lastevent.Position, Input.mousePosition, 1);
+					dragforce = (lastevent.Position - Input.mousePosition).magnitude / pinchdivider;
+					ie = new DragEventArgs(lastevent.Position, Input.mousePosition, dragforce);
 					OnDrag((DragEventArgs)ie);
 					// mouseup:
 					ie =  new PointerUpEventArgs(Input.mousePosition);

@@ -28,7 +28,6 @@ public class GUIManager : Singleton<GUIManager> {
 	void Awake(){
 		EM = EventManager.Instance;
 		overlay = false;
-
 		// nameless eventhandlers.
 		EM.EnterOverlay += delegate {
 			overlay = true;
@@ -44,7 +43,7 @@ public class GUIManager : Singleton<GUIManager> {
 	void OnGUI(){
 		if(overlay){
 			GUI.depth = 2; // i am guessing everything else is placed in depth 1?.. mysterious
-			GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
+			//GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
 			if(OverlayGUIFuncs != null){
 				GUI.depth = 1;
 				OverlayGUIFuncs();

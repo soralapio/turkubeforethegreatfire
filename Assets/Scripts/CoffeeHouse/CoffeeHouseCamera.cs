@@ -8,7 +8,7 @@ public class CoffeeHouseCamera : MonoBehaviour {
 
 	public Texture2D backToMapIcon;
 	public Texture2D resetCameraIcon;
-
+	public LayerMask poiMask;
 	private InputManager im;
 
 	private EventManager EM;
@@ -19,12 +19,16 @@ public class CoffeeHouseCamera : MonoBehaviour {
 	private Vector3 originalCameraPosition;
 	private Vector3 start;
 	private Vector3 target;
+	// should handle these with messages {
 	public bool travelling;
 	public bool turnable; // false == we are in overlay
+	// }
 	private bool notInOriginalPosition;
 	private float timetravelled;
 
 	private bool actualclick; // this is used in the mapcameracontrol.cs, too. sucks for now.
+
+	private PointOfInterest poi; // this is here for showing historical objects. why? because i was lazy and didnt bother to write CameraArrivedToPOI-Event
 
 	// Use this for initialization
 	void Start () {
@@ -71,6 +75,7 @@ public class CoffeeHouseCamera : MonoBehaviour {
 	}
 
 	private void HandleClick(object o, PointerUpEventArgs e){
+		// drag generates clicks too, and we dont want those:
 		if(!actualclick){
 			actualclick = true;
 			return;
@@ -79,12 +84,12 @@ public class CoffeeHouseCamera : MonoBehaviour {
 		if(travelling) return;
 		Ray panpoint = camera.ScreenPointToRay( new Vector3(e.Position.x , e.Position.y));
 		RaycastHit hitinfo;
-		if(Physics.Raycast(panpoint, out hitinfo)){
+		if(Physics.Raycast(panpoint, out hitinfo, 30, poiMask)){
 			if(hitinfo.transform.GetComponent<PointOfInterest>() != null){
 				notInOriginalPosition = true;
-				PointOfInterest poi = hitinfo.transform.GetComponent<PointOfInterest>();
+				poi = hitinfo.transform.GetComponent<PointOfInterest>();
 				start = transform.position;
-				target = poi.cameraoffset;
+				target = poi.cameraoffset.position;
 				travelling = true;
 				gameObject.GetComponent<SmoothLookAt>().target = hitinfo.transform;
 				timetravelled = 0;
@@ -114,7 +119,11 @@ public class CoffeeHouseCamera : MonoBehaviour {
 		else{
 			travelling = false;
 			gameObject.GetComponent<SmoothLookAt>().target = null;
-
+			gameObject.SendMessage("ForceRotationChange", transform.rotation);
+			if(poi != null){
+				poi.ShowInterest();
+				poi = null;
+			}
 		}
 	}
 

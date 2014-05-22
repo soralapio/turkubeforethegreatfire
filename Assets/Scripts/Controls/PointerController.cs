@@ -9,11 +9,14 @@ public class PointerController : MonoBehaviour {
 	private Vector3 lastdir;
 	private float xrot, yrot;
 
+	private Vector3 wantToBeEuler;
+	private Quaternion wantToBeRot;
 	public bool pointerEnabled;
 
 	private CoffeeHouseCamera chc;
 	// Use this for initialization
 	void Start () {
+		wantToBeEuler = transform.localEulerAngles;
 		chc = gameObject.GetComponent<CoffeeHouseCamera>();
 
 		im = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>() as InputManager;
@@ -27,24 +30,38 @@ public class PointerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//lastdir = transform.forward;
+		if(!CanRotate()) return;
+
+		if(Quaternion.Equals(transform.localRotation, wantToBeRot)) transform.localRotation = wantToBeRot;
+		else transform.localRotation = Quaternion.Lerp(transform.localRotation, wantToBeRot, 0.1f);
+
 	}
 
 	private void HandleDrag(object o, DragEventArgs e){
 		// ROTATE VIEW
-		if(!pointerEnabled)return;
-		if(!chc.turnable) return;
-		if(chc.travelling) return;
+		if(!CanRotate()) return;
+		if(e.StartPosition == e.EndPosition)return;
 		// following two lines were inside the IF above
 		//yrot = -transform.localEulerAngles.x;
 		//xrot = transform.localEulerAngles.y;
 
-		Vector3 applydir = lastdir *0.3f + e.Direction * 0.7f;
+		Vector3 applydir = lastdir *0.3f + e.Direction*1f;// * 0.7f;
 		
-		xrot = transform.localEulerAngles.y + applydir.x * e.Force *1.5f;
+		xrot = transform.localEulerAngles.y + applydir.x * e.Force *10f;
 		
 		yrot += applydir.y * e.Force*1.5f;
 		yrot = Mathf.Clamp (yrot, -60, 60);
 		
-		transform.localEulerAngles = new Vector3(-yrot, xrot, 0);
+		wantToBeEuler = new Vector3(-yrot, xrot, 0);
+		wantToBeRot = Quaternion.Euler(wantToBeEuler);
+		
+	}
+
+	bool CanRotate(){
+		return (pointerEnabled) && (chc.turnable) && (!chc.travelling);
+	}
+
+	void ForceRotationChange(Quaternion rot){
+		wantToBeRot = rot;
 	}
 }

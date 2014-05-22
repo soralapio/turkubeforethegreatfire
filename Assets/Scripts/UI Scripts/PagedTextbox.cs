@@ -7,6 +7,8 @@ namespace CustomGUI {
 		public Texture2D prevButtonTexture;
 		public Texture2D nextButtonTexture;
 
+		public bool Show{get; set;}
+
 		Rect textboxRect;
 		Rect prevButtonRect;
 		Rect nextButtonRect;
@@ -15,6 +17,7 @@ namespace CustomGUI {
 		string[] textPages;
 		// Use this for initialization
 		void Awake () {
+			Show = true;
 			textboxRect = new Rect();
 			prevButtonRect = new Rect();
 			nextButtonRect = new Rect();
@@ -79,6 +82,7 @@ namespace CustomGUI {
 
 		void DrawTextboxAndControls(){
 			// this function is passed as a delegate to GUIManager
+			if(!Show)return;
 			GUI.Box(textboxRect, textPages[textPageToShow], textboxStyle);
 
 			if (textPageToShow != 0) {
