@@ -4,21 +4,18 @@ using System.Collections;
 using EventSystem;
 using InputEventSystem;
 
+// a quick test for 3D scene camera, how pinch zooming (and mouse scroll) would feel in the scene. Doesnt adhere to scene colliders.
+
 public class SceneCameraZoomer : MonoBehaviour {
 	private InputManager IM;
 	private EventManager EM;
-	//private GUIManager GM;
-	// Use this for initialization
+
 	void Start () {
 		EM = EventManager.Instance;
 		IM = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>();
-		//GM = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
+
 
 		IM.PointerZoom += ZoomHandler;
-		/*
-		GM.EnteredOverlayListeners += EnterOverlayhandler;
-		GM.ExitedOverlayListeners += ExitOverlayHandler;
-		*/
 		EM.EnterOverlay += HandleEnterOverlay;
 		EM.ExitOverlay += HandleExitOverlay;
 	}

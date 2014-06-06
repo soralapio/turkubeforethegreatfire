@@ -4,7 +4,7 @@ using System.Collections.Generic;
 //using Controls;
 
 /*
- * DON'T DESTROY!
+ *	HEAVILY DEPRECATED FILE. KEPT FOR REFERENCE
  * this file is deprecated but holds the old touch-screen 
  * implementation. some of the code might get reused in
  * TouchInputDriver implementation.

@@ -2,6 +2,11 @@
 using System.Collections;
 
 namespace CustomGUI {
+
+	/*
+	* Currently the only script which follows the BaseUIComponent scheme.
+	* Creates paged textbox and pages the text based on font size and available space
+	*/
 	public class PagedTextbox : BaseUIComponent {
 		public GUIStyle textboxStyle;
 		public Texture2D prevButtonTexture;
@@ -29,7 +34,8 @@ namespace CustomGUI {
 			 * one solution:
 			 * 	move these settings into GUIManager and scale fonts with DPI if provided
 			 */
-
+			
+			// local font size settings, ugly:
 			#if UNITY_STANDALONE
 			textboxStyle.fontSize = 27;
 			#elif UNITY_EDITOR

@@ -7,7 +7,6 @@ using InputEventSystem;
 
 public class InputManager : 
 // here, depending on our platform, inherit the right control driver. hack-ish, but works
-// if you have the feels: implement as component structure
 #if UNITY_ANDROID
 	TouchInputDriver
 #elif UNITY_IPHONE

@@ -2,6 +2,11 @@
 using System.Collections;
 
 namespace CustomGUI{
+	/*
+	* This script is used in 3D scenes on the secondary camera to view historical objects (needs to be added to the scene manually as a prefab).
+	*
+	*/ 
+
 	using InputEventSystem;
 	using EventSystem;
 	public class ObjectViewerController : MonoBehaviour {

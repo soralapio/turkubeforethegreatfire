@@ -4,6 +4,14 @@ using System.Collections;
 using EventSystem;
 using InputEventSystem;
 using PH = Utils.PlatformHelper;
+
+/*
+*	Camera script for 3D scene cameras.
+*	It is note-worthy that 3D scene camera prefab uses multiple scripts
+*	and those scripts read the some public variables CoffeeHouseCamera exposes.
+*	Those should have been handled with either EventManager or Unity's send messages.
+*/
+
 public class CoffeeHouseCamera : MonoBehaviour {
 
 	public Texture2D backToMapIcon;
@@ -12,7 +20,6 @@ public class CoffeeHouseCamera : MonoBehaviour {
 	private InputManager im;
 
 	private EventManager EM;
-	//private GUIManager gm; OLD
 
 
 	// adventuring camera stuff:
@@ -21,12 +28,13 @@ public class CoffeeHouseCamera : MonoBehaviour {
 	private Vector3 target;
 	// should handle these with messages {
 	public bool travelling;
-	public bool turnable; // false == we are in overlay
+	public bool turnable; // false == we are in gui overlay
 	// }
 	private bool notInOriginalPosition;
 	private float timetravelled;
-
-	private bool actualclick; // this is used in the mapcameracontrol.cs, too. sucks for now.
+	
+	// dont read PointerUp-event if PointerDrag just happened.
+	private bool actualclick; // this is used in the mapcameracontrol.cs, too. 
 
 	private PointOfInterest poi; // this is here for showing historical objects. why? because i was lazy and didnt bother to write CameraArrivedToPOI-Event
 
@@ -38,11 +46,6 @@ public class CoffeeHouseCamera : MonoBehaviour {
 		im.PointerUp += HandleClick;
 		im.PointerDrag += HandlePointerDrag;
 
-		/*
-		gm = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManager>();
-		gm.EnteredOverlayListeners += HandleOverlayEnter;
-		gm.ExitedOverlayListeners += HandleOverlayExit;
-		*/
 		EM.EnterOverlay += HandleEnterOverlay;
 		EM.ExitOverlay += HandleExitOverlay;
 
@@ -103,7 +106,6 @@ public class CoffeeHouseCamera : MonoBehaviour {
 
 
 
-	// Update is called once per frame
 	void Update () {
 		if(travelling){
 			travelFromP2P();
@@ -129,6 +131,11 @@ public class CoffeeHouseCamera : MonoBehaviour {
 
 	private void OnGUI()
 	{
+		/*
+		* This section should be made into a delegate and passed to GUIManager
+		*
+		*/
+		
 		if(!turnable) return;
 		if (notInOriginalPosition) {
 		

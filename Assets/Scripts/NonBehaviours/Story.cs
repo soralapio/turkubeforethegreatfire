@@ -4,6 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class Story {
 	/*
+	 * DEPRECATED!
 	 * Contains a story or info element 
 	 * and some associated funtions. For
 	 * now only stores the story and can

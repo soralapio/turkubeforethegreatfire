@@ -4,54 +4,16 @@ using System.Collections.Generic;
 
 namespace InputEventSystem{
 
+	/*
+	* This file contains InputDriver class from which we inherit TouchInputDriver and MouseInputDriver
+	* InputManager then inherits the platform appropriate class so provide input events for the software.
+	* The system is very raw and implemented quite hastily to give wider availability on different platforms.
+	*/
+
 	using Utils;
 	using EventSystem;
 
-	/*
-	public delegate void InputEventListener(InputEvent e);
-
-	public class InputEvent{ // should maybe be derived into many different subtypes
-		// this event type thing needs some reconsideration
-
-		public enum EventTypes : int {ClickDown, ClickUp, Holding, Drag, DragEnd, Zoom}; // this will probably get deprecated
-		private int etype; // change to eventtype
-		private Vector3 startp;
-		private Vector3 endp;
-		private Vector3 dir;
-		private float f;
-
-		public InputEvent(int eventtype, Vector3 startp, Vector3 endp, float force){
-			etype = eventtype;
-			this.startp = startp;
-			this.endp = endp;
-			this.dir = (endp - startp).normalized;
-			this.f = force;
-		}
-
-		public Vector3 startpoint{
-			get{ return startp; }
-		}
-		public Vector3 endpoint{
-			get{ return endp; }
-		}
-		public Vector3 direction{
-			get{ return dir; }
-		}
-		public int eventtype{
-			get{return etype; }
-		}
-		public float force{
-			get{return f; }
-		}
-
-	}
-	*/
-
 	public abstract class InputDriver : MonoBehaviour{
-		/*
-		 * The actual implementation for the getEvent should be done by
-		 * using a FSM, but for now, it is quick and dirty! :<
-		 */
 		// used internally for figuring out event transmissions
 		protected InputEventArgs lastevent;
 

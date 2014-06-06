@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
+* Little script for rotating a game object. Isn't in use anymore.
+*/
 public class CameraRotator : MonoBehaviour {
 
 	public Texture2D backToMapButton;

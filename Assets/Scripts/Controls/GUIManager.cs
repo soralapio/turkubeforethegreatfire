@@ -6,9 +6,10 @@ using EventSystem;
 using CustomGUI;
 public class GUIManager : Singleton<GUIManager> {
 	/*
-	 * Handles gui for now.
-	 * The event things should be centralized!
-	 * Lol.
+	 * This class is responsible for rendering GUI elements in a centralized fashion.
+	 * Some old scripts mights have their own OnGUI functions. They shouldn't.
+	 * 
+	 * When in overlay-mode (rendering things passed to OverlayGUIFuncs), all other scene actors should unsubscribe from input events.
 	 */
 
 	public GUISkin globalskin;
@@ -42,8 +43,7 @@ public class GUIManager : Singleton<GUIManager> {
 
 	void OnGUI(){
 		if(overlay){
-			GUI.depth = 2; // i am guessing everything else is placed in depth 1?.. mysterious
-			//GUI.Label(new Rect(0,0,Screen.width, Screen.height),"", overlaystyle);
+			GUI.depth = 2; // the bigger the number, the closer to the foreground
 			if(OverlayGUIFuncs != null){
 				GUI.depth = 1;
 				OverlayGUIFuncs();

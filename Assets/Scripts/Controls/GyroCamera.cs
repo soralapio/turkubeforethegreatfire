@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+* This file contains some reference implementation regarding gyro. Not in use.
+*/
+
 public class GyroCamera : MonoBehaviour {
 
 	private bool gyroReady = false;

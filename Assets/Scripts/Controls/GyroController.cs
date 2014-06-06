@@ -3,6 +3,10 @@
 // ***********************************************************
 using UnityEngine;
 
+/*
+* Great gyrocamera implementation by Hayworks. Added few lines to listen on CoffeeHouseCamera script, so we can react to its state.
+*/
+
 /// <summary>
 /// Gyroscope controller that works with any device orientation.
 /// </summary>
@@ -34,6 +38,7 @@ public class GyroController : MonoBehaviour
 
 	protected void Start () 
 	{
+		// linking this script to the CoffeeHouseCamera
 		chc = gameObject.GetComponent<CoffeeHouseCamera>();
 		AttachGyro();
 	}

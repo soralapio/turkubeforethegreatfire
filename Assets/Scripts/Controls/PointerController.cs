@@ -3,6 +3,11 @@ using System.Collections;
 
 using EventSystem;
 using InputEventSystem;
+
+/*
+* A component used by 3D scene camera. This is enabled when the gyro is not in use. Basicly turns the camera according to player drag.
+*/
+
 public class PointerController : MonoBehaviour {
 	private InputManager im;
 
@@ -43,7 +48,6 @@ public class PointerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//lastdir = transform.forward;
 		if(!CanRotate()) return;
 
 		if(Quaternion.Equals(transform.localRotation, wantToBeRot)) transform.localRotation = wantToBeRot;
@@ -52,12 +56,8 @@ public class PointerController : MonoBehaviour {
 	}
 
 	private void HandleDrag(object o, DragEventArgs e){
-		// ROTATE VIEW
 		if(!CanRotate()) return;
 		if(e.StartPosition == e.EndPosition)return;
-		// following two lines were inside the IF above
-		//yrot = -transform.localEulerAngles.x;
-		//xrot = transform.localEulerAngles.y;
 
 		Vector3 applydir = lastdir *0.3f + e.Direction*inverseMulti;// * 0.7f;
 		
